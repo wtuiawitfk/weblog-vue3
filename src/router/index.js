@@ -1,4 +1,5 @@
 import Index from '@/pages/frontend/index.vue'
+import Login from '@/pages/admin/login.vue'
 import { createRouter,createWebHashHistory } from 'vue-router'
 
 // 统一声明所有路由
@@ -8,6 +9,15 @@ const routes=[
     component:Index,
     meta:{
       title:'weblog 首页'
+    }
+  },
+
+  // 登陆页
+  {
+    path:'/login',
+    component: Login,
+    meta:{
+      title:'登陆页'
     }
   }
 ]

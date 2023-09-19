@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.3.14",
     "flowbite": "^1.8.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
@@ -17,6 +18,8 @@
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.9"
   }
 }
