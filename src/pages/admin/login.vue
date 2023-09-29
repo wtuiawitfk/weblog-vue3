@@ -85,6 +85,7 @@ import { login } from "@/api/admin/user.js";
 import { reactive, ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { showMessage } from "@/composables/utils";
+import { setToken } from "@/composables/auth";
 
 const router = useRouter();
 const formRef = ref(null);
@@ -131,6 +132,8 @@ const onSubmit = () => {
   login(form.username, form.password)
     .then((res) => {
       if (res.data.success == true) {
+        let token = res.data.data.token;
+        setToken(token);
         showMessage("登录成功");
         router.push("/admin/index");
       } else {
