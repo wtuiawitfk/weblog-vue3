@@ -34,8 +34,13 @@
           <span class="h-[1px] w-16 bg-gray-200"></span>
         </div>
         <!-- 引入 Element Plus 表单组件，移动端设置宽度为 5/6，PC 端设置为 2/5 -->
-        <el-form class="w-5/6 md:w-2/5">
-          <el-form-item>
+        <el-form
+          class="w-5/6 md:w-2/5"
+          ref="formRef"
+          :rules="rules"
+          :model="form"
+        >
+          <el-form-item prop="username">
             <!-- 输入框组件 -->
             <el-input
               size="large"
@@ -45,7 +50,7 @@
               v-model="form.username"
             />
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <!-- 密码框组件 -->
             <el-input
               size="large"
@@ -76,10 +81,30 @@
 // 引入 Element Plus 中的用户、锁图标
 import { User, Lock } from "@element-plus/icons-vue";
 import { login } from "@/api/admin/user.js";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+const formRef = ref(null);
+
+// 自定义表单验证规则
+const rules = {
+  username: [
+    {
+      required: true,
+      message: "用户名不能为空",
+      trigger: "blur",
+    },
+  ],
+  password: [
+    {
+      required: true,
+      message: "密码不能为空",
+      trigger: "blur",
+    },
+  ],
+};
+
 // 自定义表单对象
 const form = reactive({
   username: "",
@@ -89,6 +114,15 @@ const form = reactive({
 // 登录
 const onSubmit = () => {
   console.log("登录");
+
+  // 验证form表单字段
+  formRef.value.validate((vaild) => {
+    if (!vaild) {
+      console.log("表单验证不通过");
+      return false;
+    }
+  });
+
   login(form.username, form.password).then((res) => {
     if (res.data.success == true) {
       router.push("/admin/index");
