@@ -67,6 +67,7 @@
               class="w-full"
               size="large"
               type="primary"
+              :loading="loading"
               @click="onSubmit"
               >登录</el-button
             >
@@ -81,11 +82,13 @@
 // 引入 Element Plus 中的用户、锁图标
 import { User, Lock } from "@element-plus/icons-vue";
 import { login } from "@/api/admin/user.js";
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
+import { showMessage } from "@/composables/utils";
 
 const router = useRouter();
 const formRef = ref(null);
+const loading = ref(false);
 
 // 自定义表单验证规则
 const rules = {
@@ -123,10 +126,37 @@ const onSubmit = () => {
     }
   });
 
-  login(form.username, form.password).then((res) => {
-    if (res.data.success == true) {
-      router.push("/admin/index");
-    }
-  });
+  loading.value = true;
+
+  login(form.username, form.password)
+    .then((res) => {
+      if (res.data.success == true) {
+        showMessage("登录成功");
+        router.push("/admin/index");
+      } else {
+        let message = res.data.message;
+        showMessage(message, "error");
+      }
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
+
+// 监听回车键，执行登录操作
+function onKeyUp(e) {
+  if (e.key == "Enter") {
+    onSubmit();
+  }
+}
+
+//添加键盘监听
+onMounted(() => {
+  document.addEventListener("keyup", onKeyUp);
+});
+
+// 移除键盘监听
+onBeforeUnmount(() => {
+  document.removeEventListener("keyup", onKeyUp);
+});
 </script>
