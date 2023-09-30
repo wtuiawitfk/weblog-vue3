@@ -1,4 +1,4 @@
-import { useCookies } from "@vueuse/integrations";
+import { useCookies } from "@vueuse/integrations/useCookies";
 
 // 存储在 Cookie 中的 Token 的 key
 const TOKEN_KEY = "Authorization";

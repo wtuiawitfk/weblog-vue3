@@ -84,7 +84,7 @@ import { User, Lock } from "@element-plus/icons-vue";
 import { login } from "@/api/admin/user.js";
 import { reactive, ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import { showMessage } from "@/composables/utils";
+import { showMessage } from "@/composables/util";
 import { setToken } from "@/composables/auth";
 
 const router = useRouter();
@@ -125,25 +125,25 @@ const onSubmit = () => {
       console.log("表单验证不通过");
       return false;
     }
+    loading.value = true;
+
+    login(form.username, form.password)
+      .then((res) => {
+        console.log(res);
+        if (res.success == true) {
+          let token = res.data.token;
+          setToken(token);
+          showMessage("登录成功");
+          router.push("/admin/index");
+        } else {
+          let message = res.message;
+          showMessage(message, "error");
+        }
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   });
-
-  loading.value = true;
-
-  login(form.username, form.password)
-    .then((res) => {
-      if (res.data.success == true) {
-        let token = res.data.data.token;
-        setToken(token);
-        showMessage("登录成功");
-        router.push("/admin/index");
-      } else {
-        let message = res.data.message;
-        showMessage(message, "error");
-      }
-    })
-    .finally(() => {
-      loading.value = false;
-    });
 };
 
 // 监听回车键，执行登录操作

@@ -1,21 +1,22 @@
-import '@/assets/main.css'
-import 'animate.css';
+import "@/assets/main.css";
+import "animate.css";
 
-import { createApp } from 'vue'
-import App from '@/App.vue'
+import { createApp } from "vue";
+import App from "@/App.vue";
 // 导入路由
-import router from '@/router'
+import router from "@/router";
+import "@/permission";
 // 导入 Element Plus 图标
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
-const app = createApp(App)
+const app = createApp(App);
 
 // 应用路由
-app.use(router)
+app.use(router);
 
 // 引入图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
+  app.component(key, component);
 }
 
-app.mount('#app')
+app.mount("#app");
