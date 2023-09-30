@@ -58,6 +58,7 @@
               placeholder="请输入密码"
               :prefix-icon="Lock"
               clearable
+              show-password
               v-model="form.password"
             />
           </el-form-item>
@@ -84,7 +85,7 @@ import { User, Lock } from "@element-plus/icons-vue";
 import { login } from "@/api/admin/user.js";
 import { reactive, ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import { showMessage } from "@/composables/util";
+import { showMessage } from "@/composables/utils";
 import { setToken } from "@/composables/auth";
 
 const router = useRouter();

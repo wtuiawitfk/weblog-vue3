@@ -11,6 +11,7 @@ router.beforeEach((to, from, next) => {
   if (!token && to.path.startsWith("/admin")) {
     showMessage("请先登录", "warning");
     next({ path: "/login" });
+  } else if (token && to.path == "/login") {
   } else {
     next();
   }
