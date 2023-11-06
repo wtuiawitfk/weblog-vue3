@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-slate-800 h-screen text-white">
+  <div
+    class="bg-slate-800 h-screen text-white"
+    :style="{ width: menuStore.menuWidth }"
+  >
     <!-- 顶部 Logo, 指定高度为 64px, 和右边的 Header 头保持一样高 -->
     <div class="flex items-center justify-center h-[64px]">
       <img src="../../../assets/logo.png" alt="logo" class="h-[60px]" />
@@ -23,9 +26,11 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useMenuStore } from "@/stores/menu";
 
 const route = useRoute();
 const router = useRouter();
+const menuStore = useMenuStore();
 // 根据路由地址判断哪个菜单被选中
 const defaultActive = ref(route.path);
 

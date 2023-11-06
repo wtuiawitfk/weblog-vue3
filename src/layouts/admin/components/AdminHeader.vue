@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-white h-[64px] flex pr-4 border-b border-slate-200">
+  <div
+    class="bg-white h-[64px] flex pr-4 border-b border-slate-200"
+    @click="handleMenuWidth"
+  >
     <!-- 左边栏收缩、展开 -->
     <el-tooltip
       class="box-item"
@@ -59,8 +62,15 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ArrowDown } from "@element-plus/icons-vue";
+import { useMenuStore } from "@/store/menu";
+
+const useMenuStore = useMenuStore();
+
+const handleMenuWidth = () => {
+  useMenuStore.handleMenuWidth();
+};
 </script>
 <style scoped>
 .example-showcase .el-dropdown-link {
