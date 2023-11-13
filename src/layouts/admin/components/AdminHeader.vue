@@ -64,12 +64,12 @@
 
 <script setup>
 import { ArrowDown } from "@element-plus/icons-vue";
-import { useMenuStore } from "@/store/menu";
+import { useMenuStore } from "@/stores/menu";
 
-const useMenuStore = useMenuStore();
+const menuStore = useMenuStore();
 
 const handleMenuWidth = () => {
-  useMenuStore.handleMenuWidth();
+  menuStore.handleMenuWidth();
 };
 </script>
 <style scoped>

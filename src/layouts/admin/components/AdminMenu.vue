@@ -102,4 +102,8 @@ const menus = [
 .el-menu-item:hover {
   background-color: #ffffff10;
 }
+
+.el-aside {
+  width: 250px;
+}
 </style>

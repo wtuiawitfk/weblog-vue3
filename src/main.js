@@ -11,9 +11,12 @@ import "@/permission";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 const app = createApp(App);
+const pinia = createPinia();
 
 // 应用路由
-app.use(router, createPinia);
+app.use(router);
+// use必须单独
+app.use(pinia);
 
 // 引入图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
