@@ -1,24 +1,18 @@
 <template>
-  <div
-    class="bg-white h-[64px] flex pr-4 border-b border-slate-200"
-    @click="handleMenuWidth"
-  >
+  <!-- 设置背景色为白色、高度为 64px，padding-right 为 4， border-bottom 为 slate 200 -->
+  <div class="bg-white h-[64px] flex pr-4 border-b border-slate-200">
     <!-- 左边栏收缩、展开 -->
-    <el-tooltip
-      class="box-item"
-      effect="dark"
-      content="隐藏菜单"
-      placement="bottom"
+    <div
+      class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200"
+      @click="handleMenuWidth"
     >
-      <div
-        class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 hover:bg-gray-200"
-      >
-        <el-icon>
-          <Fold />
-        </el-icon>
-      </div>
-    </el-tooltip>
+      <el-icon>
+        <Fold v-if="menuStore.menuWidth == '250px'" />
+        <Expand v-else />
+      </el-icon>
+    </div>
 
+    <!-- 右边容器 -->
     <div class="ml-auto flex">
       <!-- 点击全屏展示 -->
       <el-tooltip
@@ -35,6 +29,7 @@
           </el-icon>
         </div>
       </el-tooltip>
+
       <!-- 登录用户头像 -->
       <el-dropdown>
         <span
@@ -63,20 +58,13 @@
 </template>
 
 <script setup>
-import { ArrowDown } from "@element-plus/icons-vue";
 import { useMenuStore } from "@/stores/menu";
 
+// 引入了菜单
 const menuStore = useMenuStore();
 
+// icon 点击事件
 const handleMenuWidth = () => {
   menuStore.handleMenuWidth();
 };
 </script>
-<style scoped>
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-</style>
