@@ -23,9 +23,28 @@
       >
         <div
           class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 mr-2 hover:bg-gray-200"
+          @click="toggle"
         >
           <el-icon>
-            <FullScreen />
+            <FullScreen v-if="!isFullscreen" />
+            <Aim v-else />
+          </el-icon>
+        </div>
+      </el-tooltip>
+
+      <!-- 点击进行刷新 -->
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        content="刷新"
+        placement="bottom"
+      >
+        <div
+          class="w-[42px] h-[64px] cursor-pointer flex items-center justify-center text-gray-700 mr-2 hover:bg-gray-200"
+          @click="handleRefresh"
+        >
+          <el-icon>
+            <Refresh />
           </el-icon>
         </div>
       </el-tooltip>
@@ -59,12 +78,21 @@
 
 <script setup>
 import { useMenuStore } from "@/stores/menu";
+// import { Refresh } from "@element-plus/icons-vue/dist/types";
+// 引入useFullscreen
+import { useFullscreen } from "@vueuse/core";
 
 // 引入了菜单
 const menuStore = useMenuStore();
-
+// isFullscreen 表示当前是否处于全屏；toggle 用于动态切换全屏、非全屏
+const { isFullscreen, toggle } = useFullscreen();
 // icon 点击事件
 const handleMenuWidth = () => {
   menuStore.handleMenuWidth();
+};
+
+//刷新
+const handleRefresh = () => {
+  window.location.reload();
 };
 </script>
